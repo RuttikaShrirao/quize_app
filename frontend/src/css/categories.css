@@ -1,0 +1,60 @@
+.categories{
+    border: 1px solid #929292;
+    width: 85vw;
+ border-radius: 10px;
+ padding: 1rem;
+}
+
+.category-que{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.edit-menu{
+    padding: 1rem;
+    margin-left: 1rem;
+}
+
+.add-que-catogory{
+    text-decoration: none;
+    font-size: .9rem;
+    color: #2563CC;
+}
+
+.options{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.option-edid{
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.save-cancle_button{
+    background-color:#F9CE82;
+    padding:.5rem 1.5rem;
+    margin-right:1rem;
+    border-radius: 10px;
+    
+}
+
+.modal-input{
+    padding: .5rem ;
+    width: -webkit-fill-available;
+    border: 1px solid black;
+    border-radius: .7rem;
+}
+
+@media screen and (max-width: 425px) {
+    .categories{
+        border: 1px solid #929292;
+        width: 60vw;
+     border-radius: 10px;
+     padding: 1rem;
+    }
+}

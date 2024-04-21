@@ -1,0 +1,31 @@
+body{
+background-color: #F5F5F5;
+}
+
+.sidebar{
+  text-align: center;
+  width: 2.5rem;
+  height: 100vh;
+  padding: .5rem;
+  background-color: white;
+}
+
+.sidebar-menu{
+  margin-top: .5rem;
+
+}
+
+.logo{
+  height: 2.7rem;
+  margin-bottom: 2rem;
+}
+
+.sidebar-icons{
+  height: 1.3rem;
+}
+
+/* form-heading */
+
+.form{
+  display: flex;
+}
