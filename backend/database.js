@@ -1,6 +1,6 @@
 const mongoose  = require("mongoose");
-
-const mongoURL = "mongodb+srv://ruttikas:DolpcTrLM2XRHLdH@interview-tasks.pfj4vlt.mongodb.net/mindlense-task?retryWrites=true&w=majority&appName=interview-tasks";
+require ("dotenv").config(); 
+const mongoURL = process.env.databaseurl
 const connectdb= async()=>{
     try{
         await mongoose.connect(mongoURL)
@@ -9,6 +9,5 @@ const connectdb= async()=>{
         console.log(err,"error")
     }
 }
-
 
 module.exports = connectdb

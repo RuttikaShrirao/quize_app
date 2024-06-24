@@ -3,23 +3,38 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const {form, form_answer} = require('./Model/formSchema')
 const connectdb =require('./database')
-// const task_route=require('./routers/router')
 const reponseFormat =require('./utils')
-// const authrouter = require('./routers/authrouter')
 const authModel = require('./Model/authSchema')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const jwtDecode =require ("jwt-decode");
 const fetchuser =require('./middleware/fetchuser')
+const path = require('path');
+// const {createServer} = require("vite")
+
+// Set path to .env file 
+require ("dotenv").config(); 
 
 app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// secrete key
-const SECRET_KEY="jwtapi$mongodb"
+// const vite = await createServer({
+//   server:{
+//     middlewareMode:true
+//   },
+//   appType:'custom'
+// })
+// app.use(vite.middleware)
 
+// app.get('/', (req, res) => {
+//   // Send the frontend file (e.g., index.html)
+//   console.log("ggggggggggggggggg")
+//   res.sendFile(path.join(__dirname, 'dist/index.html'));
+// });
 
 // registration
 // app.use('/api/registration', authrouter)
@@ -51,7 +66,7 @@ app.post('/api/registration', async(req,res)=>{
       }
     
   } catch (error) {
-     reponseFormat(null, status_code = 500, msg = error)
+     reponseFormat(res, status_code = 500, msg = error)
   }
 
 })
@@ -60,6 +75,7 @@ app.post('/api/registration', async(req,res)=>{
 // login
 app.post('/api/login',async(req,res)=>{
   const {email, password}= req.body
+
   try {
     if(((email).length==0) || ((req.body.password).length==0)){
       reponseFormat(res, status_code = 400, msg = "Please fill Details..");
@@ -68,11 +84,12 @@ app.post('/api/login',async(req,res)=>{
       const isuserExist = await authModel.findOne({email:email})
      
       if(isuserExist != null){  
-
+    
         let newpassword = password.toString();
         const matchPassword= await bcrypt.compare(newpassword,isuserExist.password)
         if(matchPassword){
-          let token=jwt.sign({email:isuserExist.email, id:isuserExist._id}, SECRET_KEY)
+          let token=jwt.sign({email:isuserExist.email, id:isuserExist._id}, process.env.SECRET_KEY)
+          console.log(token,"ppp",req.body.password)
           // reponseFormat(res, status_code = 200, msg = "you are logged in", token=token);
           res.status(200).send({
             status: 200,
@@ -87,7 +104,7 @@ app.post('/api/login',async(req,res)=>{
       }
     
   } catch (error) {
-     reponseFormat(null, status_code = 500, msg = error)
+     reponseFormat(res, status_code = 500, msg = error)
     }
     
   })
@@ -113,6 +130,7 @@ app.post('/api/create_form',fetchuser,async(req,res)=>{
 
 // user-list
 app.get('/api/user-list',async(req,res)=>{
+  console.log("sdfgsfdgsfd")
   try{
     const user_list = await form.find({},{form_name:1,
       // _id:0,
@@ -121,7 +139,7 @@ app.get('/api/user-list',async(req,res)=>{
    reponseFormat(res, status_code=200, msg="data fetched", data = user_list)
   }
   catch(error){
-    reponseFormat(null, status_code = 500, msg = error)
+    reponseFormat(res, status_code = 500, msg = error)
   }
 })
 
@@ -156,8 +174,17 @@ app.post('/api/answed_by_user',async(req,res)=>{
   }
 })
 
-  connectdb().then(()=>{
-    app.listen(5000, () => {
-        console.log(`server is running`);
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
+
+
+
+connectdb().then(()=>{
+    // app.use(express.static(process.cwd()+"/dist"))
+    app.listen(process.env[process.env.port] || 5000, () => {
+        console.log(`server is running on ${process.env.port}`);
       });                                                                                                                                                                                                                                                                                                                                              
 })

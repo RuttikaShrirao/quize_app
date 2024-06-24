@@ -42,7 +42,7 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
       )
       .then(res=>res.json())
     .then(data=>{
-      
+      console.log(data)
       if(data.status==200){
           localStorage.setItem('token',data.token)
             navigate('/list')

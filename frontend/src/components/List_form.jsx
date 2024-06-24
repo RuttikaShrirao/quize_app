@@ -74,8 +74,8 @@ export default function List_form() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {list.map((row) => (
-                <StyledTableRow key={row.date}>
+              {list.map((row,index) => (
+                <StyledTableRow key={index}>
                   <StyledTableCell>{row.form_name}</StyledTableCell>
                   <StyledTableCell component="th" scope="row">
                     {row.date}
