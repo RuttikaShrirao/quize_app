@@ -41,15 +41,14 @@ export default function List_form() {
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/user-list`,
-  
   )
   .then(res=>res.json())
 .then(data=>{
   setList(data.data)
 }).catch((e) => setMsg(e.msg))
-  }, []);
+}, []);
 
-
+// console.log(list.length !==0 ?typeof(list[0].date.date.now()):"list")
   return (
     <>
       <Button
@@ -78,10 +77,11 @@ export default function List_form() {
                 <StyledTableRow key={index}>
                   <StyledTableCell>{row.form_name}</StyledTableCell>
                   <StyledTableCell component="th" scope="row">
-                    {row.date}
+                  
+                    <p>  {row.date}</p>
                   </StyledTableCell>
-                  {/* <StyledTableCell>{row.fat}</StyledTableCell> */}
-                  <Button>view submitters</Button>
+                  <StyledTableCell> <Button>view submitters</Button> </StyledTableCell>
+                  {/**/}
                 </StyledTableRow>
               ))}
             </TableBody>

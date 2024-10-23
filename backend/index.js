@@ -130,11 +130,11 @@ app.post('/api/create_form',fetchuser,async(req,res)=>{
 
 // user-list
 app.get('/api/user-list',async(req,res)=>{
-  console.log("sdfgsfdgsfd")
   try{
     const user_list = await form.find({},{form_name:1,
       // _id:0,
-     date:1});
+      date:1});
+      console.log(user_list[0].date.toLocaleDateString(),"sdfgsfdgsfd")
      
    reponseFormat(res, status_code=200, msg="data fetched", data = user_list)
   }
